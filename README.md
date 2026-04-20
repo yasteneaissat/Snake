@@ -138,7 +138,7 @@ flutter run -d chrome --web-renderer html
 ### Sur navigateur Chrome
 ```bash
 flutter pub get
-flutter run -d chrome --web-renderer html
+flutter run 
 ```
 
 ### Sur Android
