@@ -1,4 +1,4 @@
-# 🐍 SERPENT.EXE — Version Finale
+# 🐍 snake — Version Finale
 
 > Application mobile de jeu Snake développée en Flutter/Dart avec leaderboard en temps réel via Firebase Firestore, dans le cadre du BTS SIO option SLAM.
 
