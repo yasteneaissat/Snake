@@ -1,14 +1,22 @@
-# 🐍 snake — Version Finale
+# 🐍 Snake — Version Finale
 
-> Application mobile de jeu Snake développée en Flutter/Dart avec leaderboard en temps réel via Firebase Firestore, dans le cadre du BTS SIO option SLAM.
+> Application mobile de jeu Snake développée en Flutter/Dart avec leaderboard en temps réel via Firebase Firestore, dans le cadre du BTS SIO option SLAM — Session 2026.
+
+---
+
+## ⚡ Lancement rapide
+
+```powershell
+flutter pub get
+flutter run 
+```
+> Puis choisis **2** pour Chrome dans la liste des appareils.
 
 ---
 
 ## 📱 Présentation de l'application
 
-SERPENT.EXE est un jeu Snake moderne avec une esthétique néon cyberpunk.
-Le joueur contrôle un serpent qui grandit en mangeant de la nourriture.
-Les scores de tous les joueurs sont sauvegardés dans le cloud et un classement mondial est accessible en temps réel.
+SERPENT.EXE est un jeu mobile Snake développé en Flutter/Dart avec une esthétique néon cyberpunk. Le joueur contrôle un serpent qui grandit en mangeant de la nourriture, avec une difficulté croissante au fil des niveaux. Les scores de tous les joueurs sont sauvegardés dans le cloud Firebase Firestore et un classement mondial est accessible en temps réel.
 
 ---
 
@@ -21,7 +29,7 @@ Les scores de tous les joueurs sont sauvegardés dans le cloud et un classement 
 - Le serpent grandit à chaque nourriture mangée
 - Nourriture bonus (étoile violette à +50 points) qui apparaît toutes les 3 nourritures et disparaît après 6 secondes
 - Système de téléportation : le serpent traverse les bords et réapparaît de l'autre côté
-- Si la tête du serpent touche son propre corps, la partie se termine
+- Si la tête du serpent touche son propre corps, la partie se termine immédiatement
 
 ### 🏆 Score et niveaux
 - Chaque nourriture rapporte des points selon la difficulté choisie
@@ -51,53 +59,110 @@ Les scores de tous les joueurs sont sauvegardés dans le cloud et un classement 
 - Reprise de la partie là où on s'est arrêté
 
 ### 👤 Saisie du nom du joueur
-- Avant chaque partie, le joueur saisit son pseudo
+- Avant chaque partie, le joueur saisit son pseudo (2 à 12 caractères)
 - Le pseudo apparaît dans le leaderboard global
 
 ### 🏆 Leaderboard Firebase
 - Les scores sont sauvegardés automatiquement dans Firebase Firestore après chaque partie
 - Classement mondial du Top 10 des meilleurs scores
-- Mise à jour en temps réel — le classement se rafraîchit automatiquement sans recharger la page
+- Mise à jour en temps réel grâce aux Streams Firestore
 - Affichage du pseudo, score, niveau, difficulté et date de chaque partie
 
 ---
 
 ## 🗄️ Base de données
 
-Les scores sont stockés dans **Firebase Firestore** (base de données cloud de Google).
+Les scores sont stockés dans **Firebase Firestore** (base de données cloud NoSQL de Google).
 
 ### Structure de la collection `scores`
 
 | Champ | Type | Description |
 |---|---|---|
-| nom | Texte | Pseudo du joueur |
-| score | Nombre | Score final obtenu |
-| niveau | Nombre | Niveau atteint |
-| difficulte | Texte | EASY / NORMAL / HARD / INSANE |
-| date | Date | Date et heure de la partie |
+| nom | String | Pseudo saisi par le joueur |
+| score | Number | Score final obtenu |
+| niveau | Number | Niveau atteint lors de la partie |
+| difficulte | String | EASY / NORMAL / HARD / INSANE |
+| date | Timestamp | Date et heure exacte de la partie |
 
-### Fonctionnement
+### Schéma de fonctionnement
 ```
-Joueur entre son nom
-       ↓
-Choisit la difficulté
-       ↓
+Joueur saisit son pseudo
+        ↓
+Choisit la difficulté (Easy / Normal / Hard / Insane)
+        ↓
 Joue la partie
-       ↓
+        ↓
 Game Over → Score sauvegardé automatiquement dans Firestore
-       ↓
+        ↓
 Leaderboard mis à jour en temps réel pour tous les joueurs
 ```
 
 ---
 
-## 🛠️ Technologies utilisées
+## 🛠️ Environnement technologique
 
-- **Flutter** — Framework de développement mobile cross-platform
-- **Dart** — Langage de programmation
-- **Firebase Core** — Initialisation de Firebase
-- **Cloud Firestore** — Base de données cloud NoSQL en temps réel
-- **audioplayers** — Gestion des sons et musiques
+Conformément à l'annexe II.E du référentiel BTS SIO :
+
+| Élément | Outil utilisé |
+|---|---|
+| Framework applicatif | Flutter SDK 3.x |
+| Langages | Dart, YAML, Kotlin |
+| SGBD / Base de données | Firebase Firestore (NoSQL cloud) |
+| IDE / Environnement de développement | Visual Studio Code |
+| Gestion de versions | Git + GitHub |
+| Bibliothèque de composants | cloud_firestore, firebase_core, audioplayers |
+| Terminal mobile | Google Chrome (web), Android (APK) |
+| Accès sécurisé aux données | Règles Firestore (lecture/écriture contrôlées) |
+
+---
+
+## 🔀 Gestion des versions avec Git
+
+Le projet est versionné avec **Git** et hébergé sur **GitHub**.
+
+```
+https://github.com/yasteneaissat/snake
+```
+
+### Principales étapes de développement
+
+| Version | Description |
+|---|---|
+| v1.0 | Moteur de jeu Snake de base (serpent, nourriture, collision) |
+| v1.1 | Ajout des thèmes sombre et clair |
+| v1.2 | Ajout des sons et musiques |
+| v1.3 | Intégration Firebase Firestore |
+| v1.4 | Ajout du leaderboard en temps réel |
+| v2.0 | Version finale — tous les bugs corrigés |
+
+---
+
+## 🧪 Tests réalisés
+
+### Tests fonctionnels
+
+| Test | Résultat |
+|---|---|
+| Le serpent grandit en mangeant | ✅ Validé |
+| Collision avec le corps → Game Over | ✅ Validé |
+| Le score s'incrémente correctement | ✅ Validé |
+| Le niveau monte tous les 5 nourritures | ✅ Validé |
+| La vitesse augmente avec le niveau | ✅ Validé |
+| Le bonus apparaît et disparaît | ✅ Validé |
+| La pause stoppe le jeu | ✅ Validé |
+| La reprise continue la partie | ✅ Validé |
+| Le thème bascule correctement | ✅ Validé |
+| Le nom du joueur apparaît dans le classement | ✅ Validé |
+
+### Tests d'intégration
+
+| Test | Résultat |
+|---|---|
+| Connexion à Firebase Firestore | ✅ Validé |
+| Écriture d'un score dans la collection `scores` | ✅ Validé |
+| Lecture et affichage du Top 10 | ✅ Validé |
+| Lancement sur Chrome (web) | ✅ Validé |
+| Build APK Android | ✅ Validé |
 
 ---
 
@@ -106,74 +171,64 @@ Leaderboard mis à jour en temps réel pour tous les joueurs
 ```
 snake_game/
 ├── lib/
-│   ├── main.dart          ← Code principal (moteur de jeu + interfaces)
-│   ├── database.dart      ← Modèle de données et service Firestore
-│   └── leaderboard.dart   ← Écran du classement et popup nom joueur
+│   ├── main.dart          ← Code principal (moteur de jeu + interfaces + thèmes)
+│   ├── database.dart      ← Modèle ScoreEntry et service Firestore (ScoreService)
+│   └── leaderboard.dart   ← Écran du classement et popup saisie nom joueur
 ├── assets/
 │   └── audio/
 │       ├── menu.mp3       ← Musique du menu
-│       ├── game.mp3       ← Musique du jeu
-│       └── gameover.mp3   ← Musique game over
+│       ├── game.mp3       ← Musique pendant le jeu
+│       └── gameover.mp3   ← Musique au Game Over
 ├── android/
 │   └── app/
 │       └── google-services.json  ← Configuration Firebase Android
-└── pubspec.yaml           ← Dépendances du projet
+├── web/                   ← Configuration Flutter Web
+├── pubspec.yaml           ← Dépendances du projet
+└── README.md              ← Documentation
 ```
 
 ---
 
-## ⚡ Lancement rapide — Copier-Coller
+## 🚀 Lancer l'application
 
+### Sur navigateur Chrome
 ```powershell
-cd C:\Users\PC\Downloads\snake2\snake_game
 flutter pub get
 flutter run -d chrome --web-renderer html
 ```
-> Puis choisis **2** pour Chrome dans la liste des appareils.
-
----
-
-
-
-### Sur navigateur Chrome
-```bash
-flutter pub get
-flutter run 
-```
 
 ### Sur Android
-```bash
+```powershell
 flutter build apk --debug
 ```
-L'APK se trouve dans `build/app/outputs/flutter-apk/app-debug.apk`
+> L'APK se trouve dans `build\app\outputs\flutter-apk\app-debug.apk`
 
 ---
 
 ## 🔥 Configuration Firebase
 
-Le projet est connecté au projet Firebase **serpent-exe**.
-
-- **Console Firebase :** https://console.firebase.google.com/project/serpent-exe
-- **Collection Firestore :** `scores`
-- **Règles :** Mode test (lecture et écriture ouvertes)
-
----
-
-## 📋 Différences avec la version bêta
-
-| Fonctionnalité | Version Bêta | Version Finale |
-|---|---|---|
-| Thème sombre/clair | ❌ Ne fonctionne pas | ✅ Fonctionne |
-| D-Pad directionnel | ❌ Gauche/Droite invisibles | ✅ 4 boutons visibles |
-| Bouton JOUER | ❌ Trop large | ✅ Taille correcte |
-| Sons | ❌ Aucun son | ✅ 3 musiques |
-| Pause | ❌ Bloque le jeu | ✅ Pause/Reprise |
-| Collision corps | ❌ Serpent traverse | ✅ Game Over correct |
-| Score | ❌ Devient négatif | ✅ S'incrémente |
-| Niveau | ❌ Reste à 1 | ✅ Monte correctement |
-| Leaderboard | ❌ Absent | ✅ Firebase temps réel |
-| Sauvegarde scores | ❌ Absent | ✅ Cloud Firestore |
+| Paramètre | Valeur |
+|---|---|
+| Projet Firebase | serpent-exe |
+| Console | https://console.firebase.google.com/project/serpent-exe |
+| Collection Firestore | `scores` |
+| Règles | Mode test (lecture/écriture ouvertes) |
+| Région | europe-west3 |
 
 ---
 
-*Version finale — BTS SIO SLAM Session 2026*
+## 📋 Compétences BTS SIO SLAM couvertes
+
+| Compétence | Mise en œuvre dans le projet |
+|---|---|
+| Concevoir et développer une solution applicative | Développement complet en Flutter/Dart avec architecture multi-fichiers |
+| Exploiter les ressources du framework | Utilisation de Flutter (widgets, animations, CustomPainter, Streams) |
+| Utiliser des composants d'accès aux données | Firebase Firestore via le package cloud_firestore |
+| Gérer les données | Modélisation, écriture et lecture de données dans Firestore |
+| Intégrer en continu les versions | Gestion des versions avec Git et GitHub |
+| Rédiger la documentation | README complet, commentaires dans le code |
+| Réaliser les tests | Tests fonctionnels et d'intégration documentés ci-dessus |
+
+---
+
+*Version finale — BTS SIO SLAM Session 2026 — Aissat Yastene*
