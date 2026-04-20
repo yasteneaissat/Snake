@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "186400368437",
+    "project_id": "serpent-exe",
+    "storage_bucket": "serpent-exe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186400368437:android:836a4ef2c6586b415c4e7c",
+        "android_client_info": {
+          "package_name": "com.example.snake_game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjoxUkH2iw0z4vr6KwHam5u-EUufU2uHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
